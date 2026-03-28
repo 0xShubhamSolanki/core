@@ -466,16 +466,7 @@ sub_nodejs(){
 
 		if [ "${LINUX_DISTRO}" = "debian" ] || [ "${LINUX_DISTRO}" = "ubuntu" ]; then
 			# Note that Python is required for GYP
-			$SUDO_CMD apt-get $APT_CACHE_CMD install -y --no-install-recommends python3 g++ make nodejs npm curl libnode-dev $INSTALL_LIBGIT2
-
-			if ! dpkg -l | grep -q "^ii.*libnode-dev"; then
-				echo "ERROR: libnode-dev installation failed"
-				echo "This package provides Node.js headers required by MetaCall"
-				echo "Without it, CMake falls back to broken source build on Ubuntu 24+"
-				exit 1
-			fi
-			echo "Verified: libnode-dev installed correctly"
-
+			$SUDO_CMD apt-get $APT_CACHE_CMD install -y --no-install-recommends python3 g++ make nodejs npm curl $INSTALL_LIBGIT2
 		elif [ "${LINUX_DISTRO}" = "alpine" ]; then
 			$SUDO_CMD apk add --no-cache python3 g++ make nodejs nodejs-dev npm curl $INSTALL_LIBGIT2
 
